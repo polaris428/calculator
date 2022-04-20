@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             R.id.button5->numberButtonClicked("5")
             R.id.button6->numberButtonClicked("6")
             R.id.button7->numberButtonClicked("7")
-            R.id.button8->numberButtonClicked("9")
+            R.id.button8->numberButtonClicked("8")
             R.id.button9->numberButtonClicked("9")
             R.id.buttonMinus->operatorButtonClicked("-")
             R.id.buttonPlus->operatorButtonClicked("+")
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"아직 완성되지 않은 수식입니다",Toast.LENGTH_SHORT).show()
             return
         }
-        if(!expressionTexts[0].isNumber().not()||expressionTexts[2].isNumber().not()){
+        if(expressionTexts[0].isNumber().not()||expressionTexts[2].isNumber().not()){
             Toast.makeText(this,"오류가 발생했습니다",Toast.LENGTH_SHORT).show()
             return
         }
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         val expressionTexts=expressionTextView.text.split(" ")
         if(hasOperator.not()|| expressionTexts.size!=3){
             return  ""
-        }else if(!expressionTexts[0].isNumber().not()||expressionTexts[2].isNumber().not()){
+        }else if(expressionTexts[0].isNumber().not()||expressionTexts[2].isNumber().not()){
             return  ""
         }
         val exp1=expressionTexts[0].toBigInteger()
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         return  when(op){
             "+"->(exp1+exp2).toString()
             "-"->(exp1-exp2).toString()
-            "x"->(exp1*exp2).toString()
+            "X"->(exp1*exp2).toString()
             "/"->(exp1/exp2).toString()
             "%"->(exp1%exp2).toString()
             else ->""

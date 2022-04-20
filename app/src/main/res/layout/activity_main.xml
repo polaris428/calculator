@@ -137,6 +137,7 @@
                 android:background="@drawable/button_background"
                 android:stateListAnimator="@null"
                 android:text="8"
+                android:onClick="buttonClicked"
                 android:textSize="24sp" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -184,6 +185,7 @@
                 android:background="@drawable/button_background"
                 android:stateListAnimator="@null"
                 android:text="5"
+                android:onClick="buttonClicked"
                 android:textSize="24sp" />
 
             <androidx.appcompat.widget.AppCompatButton
