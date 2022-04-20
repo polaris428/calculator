@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             R.id.buttonPlus->operatorButtonClicked("+")
             R.id.buttonDivider->operatorButtonClicked("/")
             R.id.buttonModule->operatorButtonClicked("%")
-            R.id.buttonMulti->operatorButtonClicked("*")
+            R.id.buttonMulti->operatorButtonClicked("X")
         }
 
     }
