@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/calculator/app/src/main/res/drawable/button_background.xml" value="0.1" />
         <entry key="..\:/calculator/app/src/main/res/drawable/button_background_green.xml" value="0.1" />
         <entry key="..\:/calculator/app/src/main/res/drawable/buttonbackground.xml" value="0.1" />
-        <entry key="..\:/calculator/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/calculator/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/calculator/app/src/main/res/layout/history_row.xml" value="0.1" />
       </map>
     </option>
   </component>

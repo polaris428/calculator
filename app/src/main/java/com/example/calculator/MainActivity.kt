@@ -6,9 +6,14 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.room.Room
+import com.example.calculator.model.History
 import java.lang.NumberFormatException
 
 class MainActivity : AppCompatActivity() {
@@ -18,11 +23,26 @@ class MainActivity : AppCompatActivity() {
     private val resultTextView:TextView by lazy {
         findViewById(R.id.resultTextView)
     }
+
+    private val historyLayout:View by lazy {
+        findViewById(R.id.historyLayout)
+    }
+    private val historyLinearLayout:LinearLayout by lazy {
+        findViewById(R.id.historyLinearLayout)
+    }
+
+    lateinit var  db:AppDatabase
+
     private  var isOperator=false
     private  var hasOperator=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        db=Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "historyDB"
+        ).build()
     }
     fun buttonClicked(v: View){
         when (v.id){
@@ -101,8 +121,37 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun historyButtonClicked(v:View){
+        historyLayout.isVisible=true
+        historyLayout.isVisible=true
+        historyLinearLayout.removeAllViews()
+        Thread(Runnable {
+            db.historyDao().getAll().reversed().forEach {
+                runOnUiThread {
+                    val historyView=LayoutInflater.from(this).inflate(R.layout.history_row,null,false)
+                    historyView.findViewById<TextView>(R.id.expressionTextView).text=it.expression
+                    historyView.findViewById<TextView>(R.id.resultTextView).text="${it.result}"
+
+                    historyLinearLayout.addView(historyView)
+                }
+            }
+
+        }).start()
+    }
+
+
+    fun closeHistoryButtonClicked(v :View){
+        historyLayout.isVisible=false
 
     }
+    fun historyClearButtonClicked(v:View){
+        historyLinearLayout.removeAllViews()
+        Thread(Runnable {
+            db.historyDao().deleteAll()
+        }).start()
+        //TODO 디비에서 모든 기록 삭제
+        //TODO 화면에서 삭제
+    }
+
     fun reultButtonClicked(v:View){
         val expressionTexts=expressionTextView.text.split(" ")
         if(expressionTextView.text.isEmpty()||expressionTexts.size==1){
@@ -119,6 +168,10 @@ class MainActivity : AppCompatActivity() {
 
         val exceptionText=expressionTextView.text.toString()
         val resultText=calculateExpression()
+
+        Thread(Runnable {
+            db.historyDao().insertHistory(History(null,exceptionText,resultText))
+        }).start()
 
         resultTextView.text=""
         expressionTextView.text=resultText
